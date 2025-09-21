@@ -136,21 +136,6 @@ prv_process_btn(lwbtn_t* lwobj, lwbtn_btn_t* btn, lwbtn_time_t mstime) {
         btn->flags = LWBTN_FLAG_FIRST_INACTIVE_RCVD;
     }
 
-#if 0
-    /*
-     * When the button is pressed, user can manually
-     * reset the button
-     */
-    if ((btn->flags) & LWBTN_FLAG_RESET) {
-        btn->last_state = 0;             /* Disable the state */
-        btn->flags &= LWBTN_FLAG_RESET; /* Keep reset, delete others */
-        if (new_state) {
-            return;
-        }
-        btn->flags &= ~LWBTN_FLAG_RESET; /* Start over */
-    }
-#endif
-
     /* Button state has just changed */
     if (new_state != btn->last_state) {
         btn->time_state_change = mstime;
@@ -382,7 +367,7 @@ lwbtn_init_ex(lwbtn_t* lwobj, lwbtn_btn_t* btns, uint16_t btns_cnt, lwbtn_get_st
 /**
  * \brief           Button processing function, that reads the inputs and makes actions accordingly.
  * 
- * It checks state of all the buttons, linked to the specific LwBTN instance (group).
+ *                  It checks state of all the buttons, linked to the specific LwBTN instance (group).
  * 
  * \param[in]       lwobj: LwBTN instance. Set to `NULL` to use default one
  * \param[in]       mstime: Current system time in milliseconds
@@ -402,9 +387,9 @@ lwbtn_process_ex(lwbtn_t* lwobj, lwbtn_time_t mstime) {
 /**
  * \brief           Process single button instance from the specific LwOBJ instance (group).
  * 
- * This feature can be used if application wants to process the button events only
- * when interrupt hits (as a trigger). It gives user higher autonomy to decide which 
- * and when it will call specific button processing.
+ *                  This feature can be used if application wants to process the button events only
+ *                  when interrupt hits (as a trigger). It gives user higher autonomy to decide which 
+ *                  and when it will call specific button processing.
  * 
  * \param[in]       lwobj: LwBTN instance. Set to `NULL` to use default one
  * \param[in]       btn: Button object. Must not be set to `NULL`
@@ -441,8 +426,9 @@ lwbtn_set_btn_state(lwbtn_btn_t* btn, uint8_t state) {
 
 /**
  * \brief           Check if button is active.
- * Active is considered when initial debounce period has been a pass.
- * This is the period between on-press and on-release events.
+ * 
+ *                  Active is considered when initial debounce period has been a pass.
+ *                  This is the period between on-press and on-release events.
  * 
  * \param[in]       btn: Button handle to check
  * \return          `1` if active, `0` otherwise
